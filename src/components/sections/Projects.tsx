@@ -79,6 +79,8 @@ export default function Projects() {
                 <div className="mt-8 flex items-center gap-6">
                   <a
                     href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     data-cursor-hover
                     className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.15em] text-charcoal transition-colors hover:text-sage-ink"
                   >
@@ -86,6 +88,8 @@ export default function Projects() {
                   </a>
                   <a
                     href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     data-cursor-hover
                     className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.15em] text-charcoal transition-colors hover:text-sage-ink"
                   >

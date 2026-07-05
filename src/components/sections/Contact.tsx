@@ -4,13 +4,15 @@ import { Code2, Link2, Mail, Download, ArrowUpRight, Loader2 } from 'lucide-reac
 import RevealText from '@/components/ui/RevealText'
 import MagneticButton from '@/components/ui/MagneticButton'
 
-
+// Get a free access key at https://web3forms.com (no account/backend needed)
+// then paste it here. Submissions will be emailed straight to the address
+// you registered with Web3Forms.
 const WEB3FORMS_ACCESS_KEY = '6a6ddab1-12a7-419a-8257-b1671d8a1b76'
 
 const socials = [
-  { icon: Code2, label: 'GitHub', href: 'https://github.com/yourgirltech' },
-  { icon: Link2, label: 'LinkedIn', href: 'https://www.linkedin.com/in/funmilola-showumi-01b385284/' },
-  { icon: Mail, label: 'Email', href: 'mailto:showumifunmilola@gmail.com' },
+  { icon: Code2, label: 'GitHub', href: '#' },
+  { icon: Link2, label: 'LinkedIn', href: '#' },
+  { icon: Mail, label: 'Email', href: 'mailto:hello@funmilolashowumi.com' },
 ]
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
@@ -163,6 +165,8 @@ export default function Contact() {
             <a
               key={social.label}
               href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
               data-cursor-hover
               className="flex items-center gap-2 text-sm text-warm-white/70 transition-colors hover:text-sage"
             >
@@ -172,6 +176,8 @@ export default function Contact() {
           ))}
           <a
             href="#"
+            target="_blank"
+            rel="noopener noreferrer"
             data-cursor-hover
             className="flex items-center gap-2 text-sm text-warm-white/70 transition-colors hover:text-sage"
           >
