@@ -44,7 +44,7 @@ export const projects: ProjectItem[] = [
       'Fully responsive, from guest phones to the couple\u2019s desktop',
     ],
     tech: ['React', 'JavaScript', 'Framer Motion', 'Tailwind CSS'],
-    liveUrl: 'https://liveandabass.netlify.app/',
+    liveUrl: 'https://abassandlive.com',
     githubUrl: 'https://github.com/yourgirltech/live-abass-wedding',
     featured: false,
     device: 'phone',
