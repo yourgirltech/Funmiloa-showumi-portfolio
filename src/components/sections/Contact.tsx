@@ -10,8 +10,8 @@ import MagneticButton from '@/components/ui/MagneticButton'
 const WEB3FORMS_ACCESS_KEY = '6a6ddab1-12a7-419a-8257-b1671d8a1b76'
 
 const socials = [
-  { icon: Code2, label: 'GitHub', href: '#' },
-  { icon: Link2, label: 'LinkedIn', href: '#' },
+  { icon: Code2, label: 'GitHub', href: 'https://github.com/yourgirltech' },
+  { icon: Link2, label: 'LinkedIn', href: 'https://www.linkedin.com/in/funmilola-showumi-01b385284/' },
   { icon: Mail, label: 'Email', href: 'mailto:hello@funmilolashowumi.com' },
 ]
 
@@ -175,7 +175,7 @@ export default function Contact() {
             </a>
           ))}
           <a
-            href="#"
+            href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             data-cursor-hover
