@@ -1,8 +1,35 @@
 import type { ProjectItem } from '@/types'
 import financeflowImg from '@/assets/financeflow-screenshot.png'
 import weddingWebsiteImg from '@/assets/wedding-website-screenshot.jpeg'
+import styleAndGlitzDesktopImg from '@/assets/styleandglitz-desktop.png'
+import styleAndGlitzMobileImg from '@/assets/styleandglitz-mobile.jpeg'
 
 export const projects: ProjectItem[] = [
+  {
+    id: 'style-and-glitz',
+    name: 'Style & Glitz',
+    tagline: 'A luxury e-commerce flagship for watches and moissanite jewellery.',
+    overview:
+      'Style & Glitz is a full-stack luxury storefront styled as a boutique digital flagship \u2014 cinematic hero visuals, hover-to-video product cards, an editorial category showcase, and a complete commerce experience from browsing to checkout.',
+    challenge:
+      'Selling fine watches and jewellery online means earning trust at a glance, while still running real commerce underneath: accounts, inventory, and payments built for a Nigerian audience.',
+    solution:
+      'I paired a cinematic, editorial frontend with a genuine backend \u2014 Supabase for auth, storage, and data, and Paystack for payments \u2014 so the boutique feel is backed by a fully working store, not just a mockup.',
+    features: [
+      'Hover-to-video product cards and an always-on video treatment for moissanite pieces',
+      'Secure checkout with server-verified Paystack payments and automatic stock updates',
+      'Full admin dashboard for product management, locked to a single admin account',
+      'Customer accounts with order history, wishlists, and profile management',
+    ],
+    tech: ['React', 'TypeScript', 'Supabase', 'Paystack', 'Framer Motion', 'Tailwind CSS'],
+    liveUrl: 'https://styleandglitz.netlify.app/',
+    githubUrl: 'https://github.com/yourgirltech/Styleandglitz',
+    featured: true,
+    device: 'macbook',
+    accent: '#D8D5CF',
+    image: styleAndGlitzDesktopImg,
+    mobileImage: styleAndGlitzMobileImg,
+  },
   {
     id: 'financeflow',
     name: 'FinanceFlow',
@@ -19,10 +46,10 @@ export const projects: ProjectItem[] = [
       'Customisable dashboard layout with drag-and-drop widgets',
       'Dark and light themes tuned for long viewing sessions',
     ],
-    tech: ['React', 'JavaScript', 'Framer Motion', 'Tailwind CSS'],
-    liveUrl: 'https://inandoutfinanceflow.netlify.app/',
+    tech: ['React', 'JavaScript', 'Supabase', 'Framer Motion', 'Tailwind CSS'],
+    liveUrl: 'https://funmilola-showumi-portfolio.netlify.app/',
     githubUrl: 'https://github.com/yourgirltech/FinanceFlow',
-    featured: true,
+    featured: false,
     device: 'macbook',
     accent: '#DDE6DE',
     image: financeflowImg,
@@ -38,13 +65,13 @@ export const projects: ProjectItem[] = [
     solution:
       'I built a slow, editorial scroll experience with soft reveal animations and a guest-first RSVP flow, keeping every interaction obvious and every visual choice intentional.',
     features: [
-      'Integrated External Elegant RSVP link flow with real-time confirmation',
+      'Integrated RSVP flow with real-time confirmation',
       'Interactive event timeline with scroll-based reveals',
       'Custom photo gallery with fluid lightbox transitions',
       'Fully responsive, from guest phones to the couple\u2019s desktop',
     ],
-    tech: ['React', 'JavaScript', 'Framer Motion', 'Tailwind CSS'],
-    liveUrl: 'https://abassandlive.com',
+    tech: ['React', 'JavaScript', 'Supabase', 'Framer Motion', 'Tailwind CSS'],
+    liveUrl: 'https://liveandabass.netlify.app/',
     githubUrl: 'https://github.com/yourgirltech/live-abass-wedding',
     featured: false,
     device: 'phone',

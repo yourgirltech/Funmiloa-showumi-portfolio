@@ -139,20 +139,6 @@ export default function Hero() {
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-ink">Focus</p>
               <p className="mt-1 font-display text-base leading-snug text-charcoal">React, TypeScript &amp; JS</p>
             </motion.div>
-
-            {/* floating glass card 2 */}
-            <motion.div
-              style={{ x: cardX, y: cardY, transformStyle: 'preserve-3d', translateZ: 90 }}
-              className="absolute -right-5 bottom-16 w-32 rounded-2xl border border-white/40 bg-white/60 p-4 shadow-lg backdrop-blur-xl md:-right-6 md:w-36"
-            >
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-sage-deep" />
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-ink">
-                  Available
-                </p>
-              </div>
-              <p className="mt-1 font-display text-lg text-charcoal">Lagos, NG</p>
-            </motion.div>
           </motion.div>
         </motion.div>
       </div>

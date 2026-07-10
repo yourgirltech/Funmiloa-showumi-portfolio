@@ -23,6 +23,7 @@ export interface ProjectItem {
   device: 'macbook' | 'phone'
   accent: string
   image?: string
+  mobileImage?: string
 }
 
 export interface ServiceItem {

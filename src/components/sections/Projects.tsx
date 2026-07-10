@@ -104,7 +104,7 @@ export default function Projects() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               >
-                <DeviceMockup device={project.device} accent={project.accent} label={project.name} image={project.image} />
+                <DeviceMockup device={project.device} accent={project.accent} label={project.name} image={project.image} mobileImage={project.mobileImage} />
               </motion.div>
             </motion.article>
           ))}
