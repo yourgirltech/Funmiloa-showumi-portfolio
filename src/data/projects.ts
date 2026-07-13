@@ -47,7 +47,7 @@ export const projects: ProjectItem[] = [
       'Dark and light themes tuned for long viewing sessions',
     ],
     tech: ['React', 'JavaScript', 'Supabase', 'Framer Motion', 'Tailwind CSS'],
-    liveUrl: 'https://funmilola-showumi-portfolio.netlify.app/',
+    liveUrl: 'https://inandoutfinanceflow.netlify.app/',
     githubUrl: 'https://github.com/yourgirltech/FinanceFlow',
     featured: false,
     device: 'macbook',

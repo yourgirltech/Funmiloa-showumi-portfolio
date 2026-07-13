@@ -4,9 +4,7 @@ import { Code2, Link2, Mail, Download, ArrowUpRight, Loader2 } from 'lucide-reac
 import RevealText from '@/components/ui/RevealText'
 import MagneticButton from '@/components/ui/MagneticButton'
 
-// Get a free access key at https://web3forms.com (no account/backend needed)
-// then paste it here. Submissions will be emailed straight to the address
-// you registered with Web3Forms.
+
 const WEB3FORMS_ACCESS_KEY = '6a6ddab1-12a7-419a-8257-b1671d8a1b76'
 
 const socials = [

@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open the printed local URL (typically http://localhost:5173).
+Open the printed local URL https://funmilola-showumi-portfolio.netlify.app/
 
 ## Build
 
