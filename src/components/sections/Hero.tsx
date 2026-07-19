@@ -80,7 +80,7 @@ export default function Hero() {
             transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-md text-balance text-base leading-relaxed text-slate sm:text-lg"
           >
-            Crafting premium web experiences with React,Javascript, TypeScript and modern
+            Crafting premium web experiences with React, Next.js, Javascript, TypeScript and modern
             frontend technologies.
           </motion.p>
 
@@ -137,7 +137,7 @@ export default function Hero() {
               className="absolute -left-6 top-10 w-40 rounded-2xl border border-white/40 bg-white/50 p-4 shadow-lg backdrop-blur-xl md:-left-8 md:w-44 lg:-left-10 lg:w-48"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-ink">Focus</p>
-              <p className="mt-1 font-display text-base leading-snug text-charcoal">React, TypeScript &amp; JS</p>
+              <p className="mt-1 font-display text-base leading-snug text-charcoal">React, Next.js &amp; TypeScript</p>
             </motion.div>
           </motion.div>
         </motion.div>

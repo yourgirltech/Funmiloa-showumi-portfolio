@@ -3,7 +3,7 @@ import type { SkillGroup } from '@/types'
 export const skillGroups: SkillGroup[] = [
   {
     category: 'Frontend',
-    items: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Bootstrap'],
   },
   {
     category: 'Animation',
@@ -11,6 +11,10 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Development Tools',
-    items: ['Git', 'GitHub', 'Vite', 'Netlify', 'VS Code'],
+    items: ['Git', 'GitHub', 'Vite', 'Netlify', 'Vercel', 'VS Code'],
+  },
+  {
+    category: 'Backend & Integrations',
+    items: ['Supabase', 'Resend', 'EmailJS'],
   },
 ]

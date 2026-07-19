@@ -7,16 +7,16 @@ const points = [
     body: 'Beautiful, considered UI built with the same care as the code behind it.',
   },
   {
+    title: 'Full-Stack Delivery',
+    body: 'Frontend connected to real systems \u2014 authentication, databases, and live payments.',
+  },
+  {
     title: 'Performance',
     body: 'Fast by default \u2014 optimised renders, lazy loading, and lean bundles.',
   },
   {
     title: 'Architecture',
-    body: 'Scalable React applications built on clean, reusable component systems.',
-  },
-  {
-    title: 'Detail',
-    body: 'Accessible, responsive, and animated with intention down to the pixel.',
+    body: 'Scalable React and Next.js applications built on clean, reusable systems.',
   },
 ]
 
@@ -35,11 +35,12 @@ export default function About() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-xl text-balance text-xl leading-relaxed text-slate sm:text-2xl"
             >
-              I build interfaces that feel effortless to use and are engineered
-              to last. My work sits at the intersection of design sensitivity
-              and frontend rigour &mdash; scalable React architecture, thoughtful
-              motion, and an obsession with the small details most people
-              never notice, but always feel.
+              I design and build complete digital products, not just interfaces.
+              What started as frontend craft has grown into full delivery &mdash;
+              React and Next.js applications wired to real authentication,
+              databases, and payments, shipped for actual clients and customers.
+              I still obsess over the details only a designer would notice, but
+              now I build the systems underneath them too.
             </motion.p>
 
             <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">

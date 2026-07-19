@@ -13,24 +13,36 @@ import {
   Rocket,
   CloudUpload,
   MonitorCog,
+  Layers,
+  Triangle,
+  Database,
+  Send,
+  MailCheck,
+  LayoutGrid,
 } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { skillGroups } from '@/data/skills'
 
 const iconMap: Record<string, React.ElementType> = {
   React: Atom,
+  'Next.js': Layers,
   TypeScript: FileType2,
   JavaScript: Braces,
   HTML5: FileCode2,
   CSS3: Palette,
   'Tailwind CSS': Wind,
+  Bootstrap: LayoutGrid,
   'Framer Motion': Sparkles,
   GSAP: Zap,
   Git: GitBranch,
   GitHub: Code2,
   Vite: Rocket,
   Netlify: CloudUpload,
+  Vercel: Triangle,
   'VS Code': MonitorCog,
+  Supabase: Database,
+  Resend: Send,
+  EmailJS: MailCheck,
 }
 
 export default function Skills() {

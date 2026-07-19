@@ -19,7 +19,7 @@ export const services: ServiceItem[] = [
   {
     title: 'Modern Web Applications',
     description:
-      'End-to-end frontend builds for products that need to feel fast and premium.',
+      'End-to-end builds for products that need to feel fast and premium \u2014 including Supabase-backed auth, databases, and payments when the project calls for it.',
   },
   {
     title: 'Responsive Websites',
