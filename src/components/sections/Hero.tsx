@@ -44,7 +44,83 @@ export default function Hero() {
       </div>
 
       <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-8 lg:gap-16">
-        {/* left: headline */}
+        {/* portrait + floating card (signature element) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ perspective: 1200 }}
+          className="relative order-first mx-auto mb-4 aspect-[5/4] w-full max-w-md md:order-none md:mb-0 md:aspect-[4/5] md:max-w-xs lg:max-w-sm"
+        >
+          <motion.div
+            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+            className="relative h-full w-full"
+          >
+            <motion.div
+              initial={{ clipPath: 'inset(0% 0% 100% 0%)' }}
+              animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+              transition={{ delay: 0.3, duration: 1.1, ease: [0.83, 0, 0.17, 1] }}
+              className="absolute inset-0 overflow-hidden rounded-[2rem] border border-charcoal/10 shadow-[0_40px_80px_-30px_rgba(23,23,23,0.25)]"
+            >
+              <img
+                src={portrait}
+                alt="Portrait of Funmilola Showumi"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/25 via-transparent to-sage/10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent mix-blend-overlay" />
+            </motion.div>
+
+            {/* floating glass card — sits inside the frame on mobile, floats outside it on desktop */}
+            <motion.div
+              style={{ x: cardX, y: cardY, transformStyle: 'preserve-3d', translateZ: 60 }}
+              className="absolute bottom-4 left-4 w-40 rounded-2xl border border-white/40 bg-white/60 p-4 shadow-lg backdrop-blur-xl md:-left-8 md:top-10 md:bottom-auto md:w-44 lg:-left-10 lg:w-48"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-ink">Focus</p>
+              <p className="mt-1 font-display text-base leading-snug text-charcoal">React, Next.js &amp; TypeScript</p>
+            </motion.div>
+
+            {/* rotating seal badge — mobile-only signature detail */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.9, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -top-4 -right-4 z-10 md:hidden"
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 16, repeat: Infinity, ease: 'linear' }}
+                className="relative flex h-20 w-20 items-center justify-center"
+              >
+                <svg viewBox="0 0 100 100" className="h-20 w-20 drop-shadow-md">
+                  <defs>
+                    <path
+                      id="badgeCirclePath"
+                      d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
+                    />
+                  </defs>
+                  <circle cx="50" cy="50" r="49" className="fill-warm-white/95" />
+                  <text className="font-mono fill-sage-ink" style={{ fontSize: '7.2px', letterSpacing: '1.5px' }}>
+                    <textPath href="#badgeCirclePath" startOffset="0%">
+                      AVAILABLE FOR WORK &#8226; FRONTEND DEVELOPER &#8226;{' '}
+                    </textPath>
+                  </text>
+                </svg>
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 16, repeat: Infinity, ease: 'linear' }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sage-deep text-warm-white shadow-sm">
+                    <Sparkles size={14} />
+                  </span>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
+        {/* headline */}
         <div>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -108,39 +184,6 @@ export default function Hero() {
             </MagneticButton>
           </motion.div>
         </div>
-
-        {/* right: portrait + floating interface cards (signature element) */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          style={{ perspective: 1200 }}
-          className="relative mx-auto hidden aspect-[4/5] w-full max-w-xs md:block md:max-w-sm"
-        >
-          <motion.div
-            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-            className="relative h-full w-full"
-          >
-            <div className="absolute inset-0 overflow-hidden rounded-[2rem] border border-charcoal/10 shadow-[0_40px_80px_-30px_rgba(23,23,23,0.25)]">
-              <img
-                src={portrait}
-                alt="Portrait of Funmilola Showumi"
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/25 via-transparent to-sage/10" />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent mix-blend-overlay" />
-            </div>
-
-            {/* floating glass card 1 */}
-            <motion.div
-              style={{ x: cardX, y: cardY, transformStyle: 'preserve-3d', translateZ: 60 }}
-              className="absolute -left-6 top-10 w-40 rounded-2xl border border-white/40 bg-white/50 p-4 shadow-lg backdrop-blur-xl md:-left-8 md:w-44 lg:-left-10 lg:w-48"
-            >
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-ink">Focus</p>
-              <p className="mt-1 font-display text-base leading-snug text-charcoal">React, Next.js &amp; TypeScript</p>
-            </motion.div>
-          </motion.div>
-        </motion.div>
       </div>
 
       <motion.a
