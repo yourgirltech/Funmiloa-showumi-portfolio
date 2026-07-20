@@ -19,6 +19,7 @@ import {
   Send,
   MailCheck,
   LayoutGrid,
+  CloudCog,
 } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { skillGroups } from '@/data/skills'
@@ -39,6 +40,7 @@ const iconMap: Record<string, React.ElementType> = {
   Vite: Rocket,
   Netlify: CloudUpload,
   Vercel: Triangle,
+  AWS: CloudCog,
   'VS Code': MonitorCog,
   Supabase: Database,
   Resend: Send,

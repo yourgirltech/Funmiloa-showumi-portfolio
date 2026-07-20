@@ -44,13 +44,78 @@ export default function Hero() {
       </div>
 
       <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-[1.15fr_0.85fr] md:gap-8 lg:gap-16">
-        {/* portrait + floating card (signature element) */}
+        {/* headline — original first position, unchanged on desktop */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.7 }}
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-charcoal/10 bg-ivory px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-sage-ink"
+          >
+            <Sparkles size={13} className="text-sage-deep" />
+            Available for select projects
+          </motion.div>
+
+          <RevealText
+            text="Funmilola Showumi"
+            as="h1"
+            splitBy="char"
+            delay={0.3}
+            className="font-display text-[13vw] leading-[0.98] tracking-tight text-charcoal sm:text-[9vw] md:text-[6.2vw] lg:text-[5.4vw]"
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-4 flex items-center gap-4"
+          >
+            <span className="h-px w-10 bg-sage-deep" />
+            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend Developer</p>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 max-w-md text-balance text-base leading-relaxed text-slate sm:text-lg"
+          >
+            Crafting premium web experiences with React, Next.js, Javascript, TypeScript and modern
+            frontend technologies.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-10 flex flex-wrap items-center gap-4"
+          >
+            <MagneticButton
+              onClick={() =>
+                document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              View Projects
+              <ArrowUpRight size={16} />
+            </MagneticButton>
+            <MagneticButton
+              variant="secondary"
+              onClick={() =>
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              Get In Touch
+            </MagneticButton>
+          </motion.div>
+        </div>
+
+        {/* portrait + floating card — original second position; order-first only reorders visually on mobile */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           style={{ perspective: 1200 }}
-          className="relative order-first mx-auto mb-4 aspect-[5/4] w-full max-w-md md:order-none md:mb-0 md:aspect-[4/5] md:max-w-xs lg:max-w-sm"
+          className="relative order-first mx-auto mb-4 aspect-[5/4] w-full max-w-md md:order-none md:mb-0 md:aspect-[4/5] md:max-w-sm"
         >
           <motion.div
             style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
@@ -119,71 +184,6 @@ export default function Hero() {
             </motion.div>
           </motion.div>
         </motion.div>
-
-        {/* headline */}
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.7 }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-charcoal/10 bg-ivory px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-sage-ink"
-          >
-            <Sparkles size={13} className="text-sage-deep" />
-            Available for select projects
-          </motion.div>
-
-          <RevealText
-            text="Funmilola Showumi"
-            as="h1"
-            splitBy="char"
-            delay={0.3}
-            className="font-display text-[13vw] leading-[0.98] tracking-tight text-charcoal sm:text-[9vw] md:text-[6.2vw] lg:text-[5.4vw]"
-          />
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-4 flex items-center gap-4"
-          >
-            <span className="h-px w-10 bg-sage-deep" />
-            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend Developer</p>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 max-w-md text-balance text-base leading-relaxed text-slate sm:text-lg"
-          >
-            Crafting premium web experiences with React, Next.js, Javascript, TypeScript and modern
-            frontend technologies.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <MagneticButton
-              onClick={() =>
-                document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })
-              }
-            >
-              View Projects
-              <ArrowUpRight size={16} />
-            </MagneticButton>
-            <MagneticButton
-              variant="secondary"
-              onClick={() =>
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
-              }
-            >
-              Get In Touch
-            </MagneticButton>
-          </motion.div>
-        </div>
       </div>
 
       <motion.a

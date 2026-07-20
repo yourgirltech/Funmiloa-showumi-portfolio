@@ -11,7 +11,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Development Tools',
-    items: ['Git', 'GitHub', 'Vite', 'Netlify', 'Vercel', 'VS Code'],
+    items: ['Git', 'GitHub', 'Vite', 'Netlify', 'Vercel', 'AWS', 'VS Code'],
   },
   {
     category: 'Backend & Integrations',
