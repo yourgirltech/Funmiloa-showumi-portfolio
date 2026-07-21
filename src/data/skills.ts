@@ -10,11 +10,12 @@ export const skillGroups: SkillGroup[] = [
     items: ['Framer Motion', 'GSAP'],
   },
   {
-    category: 'Development Tools',
-    items: ['Git', 'GitHub', 'Vite', 'Netlify', 'Vercel', 'AWS', 'VS Code'],
+  category: 'Development Tools',
+  items: ['Git', 'GitHub', 'Vite', 'Netlify', 'Vercel', 'AWS', 'VS Code', 'Claude Code', 'Cursor'],
   },
   {
     category: 'Backend & Integrations',
     items: ['Supabase', 'Resend', 'EmailJS'],
   },
+  
 ]

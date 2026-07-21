@@ -20,6 +20,8 @@ import {
   MailCheck,
   LayoutGrid,
   CloudCog,
+  Bot,
+  MousePointer2,
 } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { skillGroups } from '@/data/skills'
@@ -45,6 +47,8 @@ const iconMap: Record<string, React.ElementType> = {
   Supabase: Database,
   Resend: Send,
   EmailJS: MailCheck,
+  'Claude Code': Bot,
+  Cursor: MousePointer2,
 }
 
 export default function Skills() {
