@@ -7,7 +7,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Animation',
-    items: ['Framer Motion', 'GSAP'],
+    items: ['Framer Motion', 'GSAP', 'Three.js'],
   },
   {
   category: 'Development Tools',

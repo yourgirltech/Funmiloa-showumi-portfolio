@@ -22,6 +22,7 @@ import {
   CloudCog,
   Bot,
   MousePointer2,
+  Box,
 } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { skillGroups } from '@/data/skills'
@@ -37,6 +38,7 @@ const iconMap: Record<string, React.ElementType> = {
   Bootstrap: LayoutGrid,
   'Framer Motion': Sparkles,
   GSAP: Zap,
+  'Three.js': Box,
   Git: GitBranch,
   GitHub: Code2,
   Vite: Rocket,

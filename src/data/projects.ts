@@ -1,5 +1,6 @@
 import type { ProjectItem } from '@/types'
 import financeflowImg from '@/assets/financeflow-screenshot.png'
+import atlasImg from '@/assets/atlas-screenshot.png'
 import weddingWebsiteImg from '@/assets/wedding-website-screenshot.jpeg'
 import styleAndGlitzDesktopImg from '@/assets/styleandglitz-desktop.png'
 import styleAndGlitzMobileImg from '@/assets/styleandglitz-mobile.jpeg'
@@ -28,6 +29,30 @@ export const projects: ProjectItem[] = [
     device: 'macbook',
     accent: '#DDE6DE',
     image: financeflowImg,
+  },
+  {
+    id: 'atlas',
+    name: 'Atlas',
+    tagline: 'A cinematic interactive universe, not a portfolio site \u2014 an experience.',
+    overview:
+      'Atlas opens in space: a star appears, narration plays, and the camera pulls back to reveal a small solar system of six planets, each a self-contained showcase of a different frontend discipline \u2014 from custom shaders to a playable game to real-time data feeds.',
+    challenge:
+      'A conventional homepage-and-navbar portfolio leaves no room to actually demonstrate range across 3D, audio, and real-time data \u2014 and spectacle usually comes at the cost of performance and accessibility.',
+    solution:
+      'I built a capability check that reads device performance, viewport, and connection quality to decide between a full 3D galaxy or a lightweight fallback, plus a plain accessible sitemap as an alternative to the spatial navigation \u2014 so the experience scales down gracefully instead of breaking.',
+    features: [
+      'Six explorable planets, each demonstrating a distinct discipline \u2014 shaders, real-time APIs, a playable physics game, and synthesized audio',
+      'Automatic performance-based fallback between a full 3D scene and a lightweight 2D equivalent',
+      'Live external data throughout \u2014 real ISS telemetry, live weather, and a real-time "Now Playing on Spotify" widget',
+      'A fully accessible, non-spatial sitemap view as an alternative to the 3D navigation',
+    ],
+    tech: ['Next.js', 'React', 'TypeScript', 'Three.js', 'Framer Motion', 'Supabase'],
+    liveUrl: 'https://atlas-gamma-seven.vercel.app/',
+    githubUrl: 'https://github.com/yourgirltech/Atlas',
+    featured: false,
+    device: 'macbook',
+    accent: '#56606C',
+    image: atlasImg,
   },
   {
     id: 'style-and-glitz',
