@@ -16,6 +16,7 @@ export interface ProjectItem {
   challenge: string
   solution: string
   features: string[]
+  metric?: string
   tech: string[]
   liveUrl: string
   githubUrl: string

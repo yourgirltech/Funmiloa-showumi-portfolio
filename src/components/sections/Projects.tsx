@@ -37,6 +37,12 @@ export default function Projects() {
                   {project.tagline}
                 </p>
 
+                {project.metric && (
+                  <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-sage-deep/20 bg-sage-deep/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-sage-ink">
+                    {project.metric}
+                  </p>
+                )}
+
                 <p className="mt-6 max-w-md text-sm leading-relaxed text-slate">
                   {project.overview}
                 </p>

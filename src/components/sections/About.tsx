@@ -18,6 +18,10 @@ const points = [
     title: 'Architecture',
     body: 'Scalable React and Next.js applications built on clean, reusable systems.',
   },
+  {
+    title: 'Financial Fluency',
+    body: 'A background in accounting (ACCA candidate) sharpens how I handle data integrity, edge cases, and reconciliation \u2014 especially on fintech and payments work.',
+  },
 ]
 
 export default function About() {

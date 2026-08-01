@@ -71,7 +71,7 @@ export default function Hero() {
             className="mt-4 flex items-center gap-4"
           >
             <span className="h-px w-10 bg-sage-deep" />
-            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend Developer</p>
+            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend Engineer, Full-Stack Capable</p>
           </motion.div>
 
           <motion.p
@@ -80,8 +80,9 @@ export default function Hero() {
             transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-md text-balance text-base leading-relaxed text-slate sm:text-lg"
           >
-            Crafting premium web experiences with React, Next.js, Javascript, TypeScript and modern
-            frontend technologies.
+            I build interfaces that connect to real systems — live payments, secured data, and
+            500+ client visits in production — not just mockups. React, Next.js, and TypeScript,
+            shipped for actual clients.
           </motion.p>
 
           <motion.div
@@ -167,7 +168,7 @@ export default function Hero() {
                   <circle cx="50" cy="50" r="49" className="fill-warm-white/95" />
                   <text className="font-mono fill-sage-ink" style={{ fontSize: '7.2px', letterSpacing: '1.5px' }}>
                     <textPath href="#badgeCirclePath" startOffset="0%">
-                      AVAILABLE FOR WORK &#8226; FRONTEND DEVELOPER &#8226;{' '}
+                      AVAILABLE FOR WORK &#8226; FULL-STACK CAPABLE &#8226;{' '}
                     </textPath>
                   </text>
                 </svg>
