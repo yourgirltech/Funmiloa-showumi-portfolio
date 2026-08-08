@@ -71,7 +71,7 @@ export default function Hero() {
             className="mt-4 flex items-center gap-4"
           >
             <span className="h-px w-10 bg-sage-deep" />
-            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend Engineer, Full-Stack Capable</p>
+            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend/Full-Stack Engineer & AI/Automation Engineer</p>
           </motion.div>
 
           <motion.p
@@ -80,9 +80,10 @@ export default function Hero() {
             transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-md text-balance text-base leading-relaxed text-slate sm:text-lg"
           >
-            I build interfaces that connect to real systems — live payments, secured data, and
-            500+ client visits in production — not just mockups. React, Next.js, and TypeScript,
-            shipped for actual clients.
+            I build interfaces connected to real systems (live payments, secured data, 500+
+            client visits), AND I build LLM-powered features and n8n automations — a Claude API
+            assistant shipped into a live app, and a human-in-the-loop email automation with real
+            approval gating.
           </motion.p>
 
           <motion.div
@@ -143,7 +144,7 @@ export default function Hero() {
               className="absolute bottom-4 left-4 w-40 rounded-2xl border border-white/40 bg-white/60 p-4 shadow-lg backdrop-blur-xl md:-left-8 md:top-10 md:bottom-auto md:w-44 lg:-left-10 lg:w-48"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-ink">Focus</p>
-              <p className="mt-1 font-display text-base leading-snug text-charcoal">React, Next.js &amp; TypeScript</p>
+              <p className="mt-1 font-display text-base leading-snug text-charcoal">React, Next.js &amp; AI/Automation</p>
             </motion.div>
 
             {/* rotating seal badge — mobile-only signature detail */}
@@ -168,7 +169,7 @@ export default function Hero() {
                   <circle cx="50" cy="50" r="49" className="fill-warm-white/95" />
                   <text className="font-mono fill-sage-ink" style={{ fontSize: '7.2px', letterSpacing: '1.5px' }}>
                     <textPath href="#badgeCirclePath" startOffset="0%">
-                      AVAILABLE FOR WORK &#8226; FULL-STACK CAPABLE &#8226;{' '}
+                      AVAILABLE FOR WORK &#8226; AI/AUTOMATION ENGINEER &#8226;{' '}
                     </textPath>
                   </text>
                 </svg>

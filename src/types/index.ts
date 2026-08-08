@@ -18,7 +18,7 @@ export interface ProjectItem {
   features: string[]
   metric?: string
   tech: string[]
-  liveUrl: string
+  liveUrl?: string
   githubUrl: string
   featured: boolean
   device: 'macbook' | 'phone'

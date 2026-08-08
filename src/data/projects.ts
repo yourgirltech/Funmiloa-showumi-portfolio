@@ -4,6 +4,7 @@ import atlasImg from '@/assets/atlas-screenshot.png'
 import weddingWebsiteImg from '@/assets/wedding-website-screenshot.jpeg'
 import styleAndGlitzDesktopImg from '@/assets/styleandglitz-desktop.png'
 import styleAndGlitzMobileImg from '@/assets/styleandglitz-mobile.jpeg'
+import gmailAiAutomationImg from '@/assets/gmail-ai-automation-screenshot.png'
 
 export const projects: ProjectItem[] = [
   {
@@ -82,6 +83,29 @@ export const projects: ProjectItem[] = [
     accent: '#D8D5CF',
     image: styleAndGlitzDesktopImg,
     mobileImage: styleAndGlitzMobileImg,
+  },
+  {
+    id: 'gmail-ai-automation',
+    name: 'Gmail AI Automation',
+    tagline: 'A human-in-the-loop AI email assistant — drafts, never sends, without a human saying yes.',
+    overview:
+      'An n8n workflow that reads incoming Gmail messages, classifies them with AI, drafts a reply for genuine enquiries, and holds every reply for explicit human approval before anything sends — nothing goes out on autopilot.',
+    challenge:
+      'AI-drafted replies are useful. AI-sent replies with nobody checking them are a liability the moment the model gets something wrong — and most demo automations skip that safeguard entirely.',
+    solution:
+      'I built a classification step ahead of the expensive work: emails are sorted into sales enquiry, spam, or promotion before summarization and drafting ever run, so API calls aren’t wasted on emails that were never getting a reply. Genuine enquiries get summarized and drafted, then emailed back to me for approval — the reply only sends after I confirm it, correctly threaded in the original conversation.',
+    features: [
+      'AI classification (Google Gemini) routes emails into sales, spam, or promotion before any expensive summarization or drafting runs',
+      'Structured Output Parser with auto-fix forces clean, predictable classification output instead of loose free-text',
+      'Human-in-the-loop approval gate — every AI-drafted reply is emailed to me first and only sends after explicit confirmation',
+      'Declined drafts are logged with a status and timestamp rather than silently disappearing',
+    ],
+    tech: ['n8n', 'Google Gemini API', 'Gmail API', 'Workflow Automation', 'AI Agent Development'],
+    githubUrl: 'https://github.com/yourgirltech/gmail-ai-automation',
+    featured: false,
+    device: 'macbook',
+    accent: '#EADFC8',
+    image: gmailAiAutomationImg,
   },
   {
     id: 'wedding-website',

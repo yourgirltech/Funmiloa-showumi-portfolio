@@ -10,7 +10,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="font-display text-base text-charcoal/70"
         >
-          Funmilola Showumi <span className="text-sage-deep">&mdash;</span> Frontend Engineer
+          Funmilola Showumi <span className="text-sage-deep">&mdash;</span> Frontend/Full-Stack & AI/Automation Engineer
         </motion.p>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-slate">
           &copy; {new Date().getFullYear()} &middot; Crafted with care

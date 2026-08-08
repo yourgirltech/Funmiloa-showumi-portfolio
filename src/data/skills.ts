@@ -10,8 +10,12 @@ export const skillGroups: SkillGroup[] = [
     items: ['Redux Toolkit', 'React Context', 'TanStack Query'],
   },
   {
-    category: 'AI Integration',
-    items: ['Anthropic Claude API', 'LLM-powered features', 'Prompt design', 'Server-side key custody'],
+    category: 'AI & LLM Development',
+    items: ['Anthropic Claude API', 'AI Agent Development', 'LLM-powered features', 'Prompt design', 'Server-side key custody'],
+  },
+  {
+    category: 'Automation',
+    items: ['n8n', 'Workflow Automation', 'Human-in-the-Loop Systems', 'Google Gemini API'],
   },
   {
     category: 'Testing & Quality',

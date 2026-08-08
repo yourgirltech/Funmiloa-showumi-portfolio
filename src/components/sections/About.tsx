@@ -22,6 +22,10 @@ const points = [
     title: 'Financial Fluency',
     body: 'A background in accounting (ACCA candidate) sharpens how I handle data integrity, edge cases, and reconciliation \u2014 especially on fintech and payments work.',
   },
+  {
+    title: 'AI & Automation',
+    body: 'LLM-powered features and n8n workflow automation \u2014 from a Claude API assistant shipped into production to a human-in-the-loop email automation with real approval gating.',
+  },
 ]
 
 export default function About() {
@@ -43,8 +47,10 @@ export default function About() {
               What started as frontend craft has grown into full delivery &mdash;
               React and Next.js applications wired to real authentication,
               databases, and payments, shipped for actual clients and customers.
-              I still obsess over the details only a designer would notice, but
-              now I build the systems underneath them too.
+              That same delivery mindset now extends into AI and automation
+              &mdash; LLM-powered features and n8n workflows that do real work,
+              not demos. I still obsess over the details only a designer would
+              notice, but now I build the systems underneath them too.
             </motion.p>
 
             <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
