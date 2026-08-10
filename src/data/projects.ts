@@ -5,6 +5,7 @@ import weddingWebsiteImg from '@/assets/wedding-website-screenshot.jpeg'
 import styleAndGlitzDesktopImg from '@/assets/styleandglitz-desktop.png'
 import styleAndGlitzMobileImg from '@/assets/styleandglitz-mobile.jpeg'
 import gmailAiAutomationImg from '@/assets/gmail-ai-automation-screenshot.png'
+import styleGlitzAiChatbotImg from '@/assets/style-glitz-ai-chatbot-screenshot.png'
 
 export const projects: ProjectItem[] = [
   {
@@ -33,31 +34,6 @@ export const projects: ProjectItem[] = [
     image: financeflowImg,
   },
   {
-    id: 'atlas',
-    name: 'Atlas',
-    tagline: 'A cinematic interactive universe, not a portfolio site \u2014 an experience.',
-    overview:
-      'Atlas opens in space: a star appears, narration plays, and the camera pulls back to reveal a small solar system of six planets, each a self-contained showcase of a different frontend discipline \u2014 from custom shaders to a playable game to real-time data feeds.',
-    challenge:
-      'A conventional homepage-and-navbar portfolio leaves no room to actually demonstrate range across 3D, audio, and real-time data \u2014 and spectacle usually comes at the cost of performance and accessibility.',
-    solution:
-      'I built a capability check that reads device performance, viewport, and connection quality to decide between a full 3D galaxy or a lightweight fallback, plus a plain accessible sitemap as an alternative to the spatial navigation \u2014 so the experience scales down gracefully instead of breaking.',
-    features: [
-      'Six explorable planets, each demonstrating a distinct discipline \u2014 shaders, real-time APIs, a playable physics game, and synthesized audio',
-      'Automatic performance-based fallback between a full 3D scene and a lightweight 2D equivalent',
-      'Live external data throughout \u2014 real ISS telemetry, live weather, and a real-time "Now Playing on Spotify" widget',
-      'A fully accessible, non-spatial sitemap view as an alternative to the 3D navigation',
-    ],
-    metric: '92 Performance \u00b7 100 Accessibility \u00b7 100 Best Practices \u00b7 100 SEO (Lighthouse, throttled mobile)',
-    tech: ['Next.js', 'React', 'TypeScript', 'Three.js', 'Framer Motion', 'Supabase'],
-    liveUrl: 'https://atlas-gamma-seven.vercel.app/',
-    githubUrl: 'https://github.com/yourgirltech/Atlas',
-    featured: false,
-    device: 'macbook',
-    accent: '#56606C',
-    image: atlasImg,
-  },
-  {
     id: 'style-and-glitz',
     name: 'Style & Glitz',
     tagline: 'A luxury e-commerce flagship for watches and moissanite jewellery.',
@@ -73,9 +49,10 @@ export const projects: ProjectItem[] = [
       'Cart and wishlist state managed with Redux Toolkit, with unit-tested reducer logic for edge cases like quantity limits and toggle behavior',
       'Full admin dashboard for product management, locked to a single admin account at both the database (RLS) and frontend level',
       'Customer accounts with order history, wishlists, and profile management',
+      'Extended the platform with a production AI shopping assistant — see the Style & Glitz AI Chatbot project for the full architecture.',
     ],
     metric: '500+ client visits since launch',
-    tech: ['React', 'TypeScript', 'Redux Toolkit', 'React Router', 'React Testing Library', 'Jest', 'Supabase', 'Paystack', 'Framer Motion', 'Tailwind CSS'],
+    tech: ['React', 'TypeScript', 'Redux Toolkit', 'React Router', 'React Testing Library', 'Jest', 'Supabase', 'Paystack', 'Framer Motion', 'Tailwind CSS', 'n8n', 'Google Gemini API', 'Anthropic Claude API'],
     liveUrl: 'https://styleandglitz.netlify.app/',
     githubUrl: 'https://github.com/yourgirltech/Styleandglitz',
     featured: false,
@@ -83,6 +60,29 @@ export const projects: ProjectItem[] = [
     accent: '#D8D5CF',
     image: styleAndGlitzDesktopImg,
     mobileImage: styleAndGlitzMobileImg,
+  },
+  {
+    id: 'style-glitz-ai-chatbot',
+    name: 'Style & Glitz AI Chatbot',
+    tagline: 'An LLM shopping assistant with dual-model fallback — grounded in real data, never a guess.',
+    overview:
+      'A customer-facing AI agent built in n8n for Style & Glitz, answering product, policy, and order-status questions. Every claim is grounded in a live tool call or explicitly deferred to a human — never invented.',
+    challenge:
+      'An AI agent reachable by anonymous website visitors needs to safely look up real customer PII — order history, saved addresses — without a privileged database key or a filter condition that could be wrong.',
+    solution:
+      'Order and profile lookups authenticate as the customer’s own real Supabase session, passed through from the frontend — not a shared credential with an application-level filter. Postgres Row Level Security enforces ownership at the database layer itself, the same way it does for the website. Paired with automatic Gemini-to-Claude fallback, and a second validation layer built after testing revealed the agent’s own fallback logic could silently swallow a total failure.',
+    features: [
+      'Dual-model fallback — Gemini primary, Claude automatic backup if Gemini fails (quota, billing, outage)',
+      'Order and profile lookups authenticate as the real logged-in customer, so Row Level Security — not application code — enforces who can see what',
+      'A second failure-detection layer, added after testing showed the agent could report false success on a total failure',
+      'Isolated Google Cloud project for this workflow’s Gemini quota, after discovering it was competing with an unrelated automation',
+    ],
+    tech: ['n8n', 'Google Gemini API', 'Anthropic Claude API', 'Supabase', 'Row Level Security', 'AI Agent Development'],
+    githubUrl: 'https://github.com/yourgirltech/style-glitz-ai-chatbot',
+    featured: false,
+    device: 'macbook',
+    accent: '#D8D5CF',
+    image: styleGlitzAiChatbotImg,
   },
   {
     id: 'gmail-ai-automation',
@@ -106,6 +106,31 @@ export const projects: ProjectItem[] = [
     device: 'macbook',
     accent: '#EADFC8',
     image: gmailAiAutomationImg,
+  },
+  {
+    id: 'atlas',
+    name: 'Atlas',
+    tagline: 'A cinematic interactive universe, not a portfolio site — an experience.',
+    overview:
+      'Atlas opens in space: a star appears, narration plays, and the camera pulls back to reveal a small solar system of six planets, each a self-contained showcase of a different frontend discipline — from custom shaders to a playable game to real-time data feeds.',
+    challenge:
+      'A conventional homepage-and-navbar portfolio leaves no room to actually demonstrate range across 3D, audio, and real-time data — and spectacle usually comes at the cost of performance and accessibility.',
+    solution:
+      'I built a capability check that reads device performance, viewport, and connection quality to decide between a full 3D galaxy or a lightweight fallback, plus a plain accessible sitemap as an alternative to the spatial navigation — so the experience scales down gracefully instead of breaking.',
+    features: [
+      'Six explorable planets, each demonstrating a distinct discipline — shaders, real-time APIs, a playable physics game, and synthesized audio',
+      'Automatic performance-based fallback between a full 3D scene and a lightweight 2D equivalent',
+      'Live external data throughout — real ISS telemetry, live weather, and a real-time "Now Playing on Spotify" widget',
+      'A fully accessible, non-spatial sitemap view as an alternative to the 3D navigation',
+    ],
+    metric: '92 Performance · 100 Accessibility · 100 Best Practices · 100 SEO (Lighthouse, throttled mobile)',
+    tech: ['Next.js', 'React', 'TypeScript', 'Three.js', 'Framer Motion', 'Supabase'],
+    liveUrl: 'https://atlas-gamma-seven.vercel.app/',
+    githubUrl: 'https://github.com/yourgirltech/Atlas',
+    featured: false,
+    device: 'macbook',
+    accent: '#56606C',
+    image: atlasImg,
   },
   {
     id: 'wedding-website',

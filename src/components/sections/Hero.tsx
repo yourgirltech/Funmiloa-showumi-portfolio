@@ -71,7 +71,7 @@ export default function Hero() {
             className="mt-4 flex items-center gap-4"
           >
             <span className="h-px w-10 bg-sage-deep" />
-            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend/Full-Stack Engineer & AI/Automation Engineer</p>
+            <p className="font-display text-xl italic text-slate sm:text-2xl">Frontend/Full-Stack Engineer | AI/Automation Engineer | LLM Engineer &amp; AI Agent Development</p>
           </motion.div>
 
           <motion.p

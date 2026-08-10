@@ -11,7 +11,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'AI & LLM Development',
-    items: ['Anthropic Claude API', 'AI Agent Development', 'LLM-powered features', 'Prompt design', 'Server-side key custody'],
+    items: ['Anthropic Claude API', 'AI Agent Development', 'LLM-powered features', 'Prompt design', 'Server-side key custody', 'Dual-Model Fallback Design'],
   },
   {
     category: 'Automation',
