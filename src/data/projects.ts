@@ -1,160 +1,219 @@
-import type { ProjectItem } from '@/types'
-import financeflowImg from '@/assets/financeflow-screenshot.png'
-import atlasImg from '@/assets/atlas-screenshot.png'
-import weddingWebsiteImg from '@/assets/wedding-website-screenshot.jpeg'
-import styleAndGlitzDesktopImg from '@/assets/styleandglitz-desktop.png'
-import styleAndGlitzMobileImg from '@/assets/styleandglitz-mobile.jpeg'
-import gmailAiAutomationImg from '@/assets/gmail-ai-automation-screenshot.png'
-import styleGlitzAiChatbotImg from '@/assets/style-glitz-ai-chatbot-screenshot.png'
+import type { Project, SideProject } from '@/types'
+import styleAndGlitzImg from '@/assets/styleandglitz-desktop.webp'
+import financeflowImg from '@/assets/financeflow-screenshot.webp'
 
-export const projects: ProjectItem[] = [
+const gh = (repo: string) => `https://github.com/yourgirltech/${repo}`
+
+/**
+ * Every claim below is taken from the project's source code. Projects without
+ * a public deployment have no "Live Demo" link.
+ */
+export const foresight: Project = {
+  id: 'foresight',
+  name: 'Foresight',
+  category: 'Healthcare revenue cycle · Multi-agent system',
+  summary:
+    'An AI patient-access and revenue-cycle platform for multi-clinic healthcare providers — specialist agents coordinated by a deterministic Commander, with a human approving every consequential action.',
+  problem:
+    'Clinic billing teams lose time and revenue to denied claims, unchecked eligibility, prior-authorization paperwork and appeals. Automating that work is only acceptable if the software never acts on a patient’s or payer’s behalf without a person signing off — and if one clinic’s data can never reach another’s.',
+  built:
+    'A multi-tenant SaaS platform where each workflow — claims risk, eligibility, prior authorization, coordination of benefits, cost estimates, appeals, insurance-card OCR and voice reminders — is handled by a specialist agent. A single Commander decides what happens next from ordered rule tables. AI explains, recommends and drafts; a person approves; only then does anything execute.',
+  decisions: [
+    'The Commander is a pure function with no LLM: the same state and trigger always produce the same decision. Four disjoint rule tables — claims, eligibility, prior authorization, appeals — put safety guards first and escalate by default.',
+    'Human approval is structural, not a prompt: the only route to an execution agent sits behind an approved, non-low-confidence recommendation. Resubmitting a corrected claim has no automated path at all — it goes to a person.',
+    'Tenant isolation lives in the database. Every table carries an organization id behind Postgres row-level security, the API forwards each user’s own token, and a 29-check proof tries every way to read or change another clinic’s data.',
+    'Models never own the numbers: cost estimates are computed deterministically and Claude only phrases them; insurance-card OCR returns confidence-flagged fields that a person confirms before anything is written.',
+    'Care safety is enforced in the rule tables: eligibility and prior-authorization checks can never gate emergency care.',
+  ],
+  demonstrates: [
+    'Multi-agent orchestration',
+    'Human-in-the-loop design',
+    'Multi-tenant security',
+    'Claude vision OCR',
+    'Healthcare domain modelling',
+  ],
+  stack: ['React', 'TypeScript', 'Tailwind CSS', 'Python', 'FastAPI', 'Supabase', 'PostgreSQL · RLS', 'Claude', 'n8n', 'Vapi', 'Docker'],
+  links: [{ kind: 'GitHub', href: gh('Foresight') }],
+}
+
+export const projects: Project[] = [
   {
-    id: 'financeflow',
-    name: 'FinanceFlow',
-    tagline: 'A personal finance dashboard that makes numbers feel calm \u2014 and never invents one.',
-    overview:
-      'FinanceFlow is a personal finance dashboard built to turn dense financial data into a clear, breathable interface. It brings together spending, budgets, forecasts, and a genuine AI assistant into a single view designed for daily use \u2014 without ever showing a number it can\u2019t back up.',
-    challenge:
-      'Financial dashboards tend to overwhelm with charts and tables competing for attention, and most "AI-powered" finance tools blur the line between real computed facts and plausible-sounding guesses.',
-    solution:
-      'I built a layered information system \u2014 a calm overview first, detail on demand \u2014 and drew a hard line between two kinds of insight. A pure computed engine handles "did my spending change," instantly and verifiably. A genuine Claude API integration handles the harder judgment calls, like "where can I cut back," reasoning over a structured snapshot of real data and explicitly saying "I don\u2019t have enough information" rather than guessing.',
-    features: [
-      'A Claude-powered AI Assistant (Anthropic Claude API) answering free-form spending questions, grounded in a compact structured snapshot \u2014 never a live database connection, never able to invent a transaction',
-      'A Netlify Function proxy that checks the caller\u2019s Supabase session before forwarding any request to Claude, keeping the API key off the client entirely',
-      'Real-time budget tracking with animated progress rings, and CSV/Excel statement import via one shared parsing pipeline',
-      'Personalized onboarding (Simple / Planner / Power User) that reshapes the entire dashboard layout per user, from the same codebase',
+    id: 'voice-reminders',
+    name: 'Voice Reminder System',
+    category: 'Voice AI automation · n8n + Vapi',
+    summary:
+      'Automated appointment-reminder calls that never dial without a recorded human enrollment and live patient consent — built as Foresight’s voice channel.',
+    problem:
+      'Reminder calls reduce no-shows, but an automated call to a patient who has withdrawn consent is a compliance failure, and a lost callback silently loses the result.',
+    built:
+      'n8n owns timing; the Foresight API owns every decision. A scheduled workflow pulls due reminders, requests a single-use dial authorization, places the Vapi call and reports it back. A second workflow receives Vapi’s end-of-call report, and the API records the outcome and escalates anything that isn’t a clean confirmation.',
+    decisions: [
+      'Consent is an append-only ledger re-checked at enrollment, at dispatch, immediately before dialling — an atomic, single-use authorization in Postgres — and again once the call exists, where a refusal ends the live call.',
+      'Every state change is compare-and-set, so overlapping polls, replayed callbacks or late reports can never double-dial or reopen a finished reminder.',
+      'Recording is disabled; only the structured outcome and call metadata are stored, never a transcript.',
+      'Lost dispatches, missing callbacks and failed hang-ups are swept into escalations for a person instead of failing silently.',
     ],
-    metric: '93 Accessibility \u00b7 100 Best Practices \u00b7 100 SEO (Lighthouse, throttled mobile)',
-    tech: ['React', 'JavaScript', 'TanStack Query', 'Anthropic Claude API', 'Netlify Functions', 'Supabase', 'Vitest', 'React Testing Library', 'Recharts', 'Tailwind CSS'],
-    liveUrl: 'https://inandoutfinanceflow.netlify.app/',
-    githubUrl: 'https://github.com/yourgirltech/FinanceFlow',
-    featured: true,
-    device: 'macbook',
-    accent: '#DDE6DE',
-    image: financeflowImg,
+    demonstrates: ['Voice AI', 'Workflow orchestration', 'Consent & compliance', 'Failure handling'],
+    stack: ['n8n', 'Vapi', 'FastAPI', 'PostgreSQL', 'Docker'],
+    links: [{ kind: 'GitHub', href: gh('Foresight'), label: 'Part of Foresight' }],
+    flow: [
+      { label: 'Schedule', detail: 'n8n, every few minutes', tone: 'trigger' },
+      { label: 'Due + consent', detail: 'API leases the reminder', tone: 'rule' },
+      { label: 'Authorize dial', detail: 'atomic, single-use', tone: 'rule' },
+      { label: 'Vapi call', detail: 'recording off', tone: 'ai' },
+      { label: 'Outcome', detail: 'end-of-call webhook', tone: 'data' },
+      { label: 'Escalate', detail: 'anything not confirmed', tone: 'human' },
+    ],
   },
   {
     id: 'style-and-glitz',
     name: 'Style & Glitz',
-    tagline: 'A luxury e-commerce flagship for watches and moissanite jewellery.',
-    overview:
-      'Style & Glitz is a full-stack luxury storefront styled as a boutique digital flagship \u2014 cinematic hero visuals, hover-to-video product cards, an editorial category showcase, and a complete commerce experience from browsing to checkout.',
-    challenge:
-      'Selling fine watches and jewellery online means earning trust at a glance, while still running real commerce underneath: accounts, inventory, and payments for a Nigerian audience \u2014 where Stripe isn\u2019t an option for merchants.',
-    solution:
-      'I paired a cinematic, editorial frontend with a genuine backend \u2014 Supabase for auth, storage, and data, and Paystack (chosen over Stripe, which doesn\u2019t support Nigerian merchants) for payments. Payment success is verified server-side through a dedicated Edge Function rather than trusted from the client redirect alone, so the boutique feel is backed by a real, secure store.',
-    features: [
-      'Hover-to-video product cards and an always-on video treatment for moissanite pieces',
-      'Two-step Paystack payment flow: initialize server-side, then independently verify success before confirming an order',
-      'Cart and wishlist state managed with Redux Toolkit, with unit-tested reducer logic for edge cases like quantity limits and toggle behavior',
-      'Full admin dashboard for product management, locked to a single admin account at both the database (RLS) and frontend level',
-      'Customer accounts with order history, wishlists, and profile management',
-      'Extended the platform with a production AI shopping assistant — see the Style & Glitz AI Chatbot project for the full architecture.',
+    category: 'E-commerce · AI customer agent',
+    summary:
+      'A luxury storefront for watches and moissanite jewellery with a full commerce backend — and an AI shopping assistant grounded in live store data.',
+    problem:
+      'A boutique selling high-value pieces online has to earn trust at a glance, take payments in Nigeria (where Stripe isn’t available to merchants), and answer product, policy and order questions without ever inventing an answer.',
+    built:
+      'A React + TypeScript storefront on Supabase — auth, Postgres, storage and Edge Functions — with Paystack checkout, customer accounts, wishlists and an admin dashboard for product management, plus an n8n AI agent embedded as the site’s chat assistant.',
+    decisions: [
+      'Paystack payments are initialised and verified through Supabase Edge Functions, keeping secret keys off the client.',
+      'Separate customer and admin authentication; cart and wishlist state in Redux Toolkit with unit-tested reducers.',
+      'The assistant answers only from tool results — the live product catalogue, and for signed-in customers their order history, profile and order items, fetched with the customer’s own session so row-level security decides what it can see.',
+      'Gemini is the primary model with automatic Claude fallback; if both fail, a fixed reply routes the customer to the human concierge team.',
     ],
-    metric: '500+ client visits since launch',
-    tech: ['React', 'TypeScript', 'Redux Toolkit', 'React Router', 'React Testing Library', 'Jest', 'Supabase', 'Paystack', 'Framer Motion', 'Tailwind CSS', 'n8n', 'Google Gemini API', 'Anthropic Claude API'],
-    liveUrl: 'https://styleandglitz.netlify.app/',
-    githubUrl: 'https://github.com/yourgirltech/Styleandglitz',
-    featured: false,
-    device: 'macbook',
-    accent: '#D8D5CF',
-    image: styleAndGlitzDesktopImg,
-    mobileImage: styleAndGlitzMobileImg,
+    demonstrates: ['Full-stack commerce', 'Payments', 'Tool-calling agent', 'Model fallback', 'Human escalation'],
+    stack: ['React', 'TypeScript', 'Redux Toolkit', 'Supabase', 'Paystack', 'n8n', 'Gemini', 'Claude', 'Jest'],
+    links: [
+      { kind: 'Live Demo', href: 'https://styleandglitz.netlify.app/' },
+      { kind: 'GitHub', href: gh('Styleandglitz'), label: 'Storefront' },
+      { kind: 'GitHub', href: gh('CUSTOMER-SUPPORT-ai-chatbot-FOR-STYLEANDGLITZ'), label: 'AI agent workflow' },
+    ],
+    flow: [
+      { label: 'Customer chat', detail: 'site widget', tone: 'trigger' },
+      { label: 'AI agent', detail: 'Gemini → Claude fallback', tone: 'ai' },
+      { label: 'Scoped tools', detail: 'catalogue · orders · profile', tone: 'data' },
+      { label: 'Concierge', detail: 'WhatsApp · Instagram · email', tone: 'human' },
+    ],
+    image: {
+      src: styleAndGlitzImg,
+      width: 1600,
+      height: 694,
+      alt: 'Style & Glitz storefront home page with a cinematic watch hero image',
+    },
   },
   {
-    id: 'style-glitz-ai-chatbot',
-    name: 'Style & Glitz AI Chatbot',
-    tagline: 'An LLM shopping assistant with dual-model fallback — grounded in real data, never a guess.',
-    overview:
-      'A customer-facing AI agent built in n8n for Style & Glitz, answering product, policy, and order-status questions. Every claim is grounded in a live tool call or explicitly deferred to a human — never invented.',
-    challenge:
-      'An AI agent reachable by anonymous website visitors needs to safely look up real customer PII — order history, saved addresses — without a privileged database key or a filter condition that could be wrong.',
-    solution:
-      'Order and profile lookups authenticate as the customer’s own real Supabase session, passed through from the frontend — not a shared credential with an application-level filter. Postgres Row Level Security enforces ownership at the database layer itself, the same way it does for the website. Paired with automatic Gemini-to-Claude fallback, and a second validation layer built after testing revealed the agent’s own fallback logic could silently swallow a total failure.',
-    features: [
-      'Dual-model fallback — Gemini primary, Claude automatic backup if Gemini fails (quota, billing, outage)',
-      'Order and profile lookups authenticate as the real logged-in customer, so Row Level Security — not application code — enforces who can see what',
-      'A second failure-detection layer, added after testing showed the agent could report false success on a total failure',
-      'Isolated Google Cloud project for this workflow’s Gemini quota, after discovering it was competing with an unrelated automation',
+    id: 'aurelia',
+    name: 'Aurelia Estate Voice Agent',
+    category: 'Voice AI agent · Real estate',
+    summary:
+      'A property-enquiry form that triggers an AI voice call within about a minute — and lets the agent search live listings mid-conversation.',
+    problem:
+      'Property enquiries go cold quickly. Calling every lead immediately, in their language, and answering questions about listings that are actually available is hard to staff.',
+    built:
+      'A React enquiry flow backed by two Supabase Edge Functions. One validates and saves the lead, then places an outbound Vapi call that greets the caller by title and name in their chosen language. The other serves the voice agent’s tools — property search and property details — straight from live Postgres listings during the call.',
+    decisions: [
+      'The Vapi private key exists only as an Edge Function secret — it never reaches the browser.',
+      'Duplicate protection: the same number within ten minutes is still saved as a lead, but never triggers a second call.',
+      'The tool endpoint is protected by a shared secret and always returns a result for every tool call, so a failed lookup becomes a spoken explanation instead of dead air.',
+      'Six call languages — English, French, Spanish, German, Arabic and Portuguese — with localised salutations.',
     ],
-    tech: ['n8n', 'Google Gemini API', 'Anthropic Claude API', 'Supabase', 'Row Level Security', 'AI Agent Development'],
-    githubUrl: 'https://github.com/yourgirltech/style-glitz-ai-chatbot',
-    featured: false,
-    device: 'macbook',
-    accent: '#D8D5CF',
-    image: styleGlitzAiChatbotImg,
+    demonstrates: ['Voice AI', 'Real-time tool calling', 'Serverless backends', 'Lead capture'],
+    stack: ['React', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Edge Functions', 'Vapi'],
+    links: [{ kind: 'GitHub', href: gh('Aurelia-Estate-Voice-Agent') }],
+    flow: [
+      { label: 'Enquiry form', detail: 'React', tone: 'trigger' },
+      { label: 'Validate + dedupe', detail: 'Edge Function', tone: 'rule' },
+      { label: 'Outbound call', detail: 'Vapi, 6 languages', tone: 'ai' },
+      { label: 'Live listings', detail: 'search · details tools', tone: 'data' },
+    ],
   },
   {
-    id: 'gmail-ai-automation',
-    name: 'Gmail AI Automation',
-    tagline: 'A human-in-the-loop AI email assistant — drafts, never sends, without a human saying yes.',
-    overview:
-      'An n8n workflow that reads incoming Gmail messages, classifies them with AI, drafts a reply for genuine enquiries, and holds every reply for explicit human approval before anything sends — nothing goes out on autopilot.',
-    challenge:
-      'AI-drafted replies are useful. AI-sent replies with nobody checking them are a liability the moment the model gets something wrong — and most demo automations skip that safeguard entirely.',
-    solution:
-      'I built a classification step ahead of the expensive work: emails are sorted into sales enquiry, spam, or promotion before summarization and drafting ever run, so API calls aren’t wasted on emails that were never getting a reply. Genuine enquiries get summarized and drafted, then emailed back to me for approval — the reply only sends after I confirm it, correctly threaded in the original conversation.',
-    features: [
-      'AI classification (Google Gemini) routes emails into sales, spam, or promotion before any expensive summarization or drafting runs',
-      'Structured Output Parser with auto-fix forces clean, predictable classification output instead of loose free-text',
-      'Human-in-the-loop approval gate — every AI-drafted reply is emailed to me first and only sends after explicit confirmation',
-      'Declined drafts are logged with a status and timestamp rather than silently disappearing',
+    id: 'financeflow',
+    name: 'FinanceFlow',
+    category: 'Fintech · LLM features',
+    summary:
+      'A personal finance app that adapts to how involved each user wants to be — with an AI assistant that never shows a number it can’t back up.',
+    problem:
+      'Budgeting apps either overwhelm casual users or underserve power users, and “AI insights” in finance tools often blur computed facts with plausible guesses.',
+    built:
+      'A React app with Supabase authentication, CSV and Excel statement import, quick-add entry, envelope budgets, savings goals and a deterministic insights engine — plus a Claude-powered assistant that answers questions about the user’s month.',
+    decisions: [
+      'Claude is called from a Netlify Function that verifies the user’s Supabase session first; the API key never reaches the browser.',
+      'The model receives a compact, pre-computed snapshot of the month, quotes only its pre-formatted figures, and says so when the data is insufficient.',
+      'Onboarding sets a Simple, Planner or Power User level that reshapes navigation and the dashboard from one codebase.',
+      'Seven currencies — NGN, USD, GBP, GHS, KES, ZAR and EUR — with locale-aware formatting.',
     ],
-    tech: ['n8n', 'Google Gemini API', 'Gmail API', 'Workflow Automation', 'AI Agent Development'],
-    githubUrl: 'https://github.com/yourgirltech/gmail-ai-automation',
-    featured: false,
-    device: 'macbook',
-    accent: '#EADFC8',
-    image: gmailAiAutomationImg,
+    demonstrates: ['Grounded LLM features', 'Serverless AI proxy', 'Product thinking', 'Data import'],
+    stack: ['React', 'Supabase Auth', 'Netlify Functions', 'Claude', 'TanStack Query', 'Recharts', 'Vitest', 'Tailwind CSS'],
+    links: [
+      { kind: 'Live Demo', href: 'https://inandoutfinanceflow.netlify.app/' },
+      { kind: 'GitHub', href: gh('FinanceFlow') },
+      { kind: 'Case Study', href: `${gh('FinanceFlow')}/blob/main/CASE_STUDY.md` },
+    ],
+    image: {
+      src: financeflowImg,
+      width: 1600,
+      height: 698,
+      alt: 'FinanceFlow dashboard showing balance, spending breakdown and budget progress',
+    },
   },
   {
-    id: 'atlas',
-    name: 'Atlas',
-    tagline: 'A cinematic interactive universe, not a portfolio site — an experience.',
-    overview:
-      'Atlas opens in space: a star appears, narration plays, and the camera pulls back to reveal a small solar system of six planets, each a self-contained showcase of a different frontend discipline — from custom shaders to a playable game to real-time data feeds.',
-    challenge:
-      'A conventional homepage-and-navbar portfolio leaves no room to actually demonstrate range across 3D, audio, and real-time data — and spectacle usually comes at the cost of performance and accessibility.',
-    solution:
-      'I built a capability check that reads device performance, viewport, and connection quality to decide between a full 3D galaxy or a lightweight fallback, plus a plain accessible sitemap as an alternative to the spatial navigation — so the experience scales down gracefully instead of breaking.',
-    features: [
-      'Six explorable planets, each demonstrating a distinct discipline — shaders, real-time APIs, a playable physics game, and synthesized audio',
-      'Automatic performance-based fallback between a full 3D scene and a lightweight 2D equivalent',
-      'Live external data throughout — real ISS telemetry, live weather, and a real-time "Now Playing on Spotify" widget',
-      'A fully accessible, non-spatial sitemap view as an alternative to the 3D navigation',
+    id: 'crypto-swing-bot',
+    name: 'Crypto Swing Bot',
+    category: 'Trading automation · Python systems',
+    summary:
+      'A capital-preservation-first BTC/ETH swing-trading system — market-structure analysis, a risk engine with veto power, and human approval on every paper trade.',
+    problem:
+      'Most trading bots optimise for returns and treat risk as an afterthought. This one starts from the opposite question: what must never happen to the account?',
+    built:
+      'A Python system that reads closed four-hour candles, detects market structure — swings, breaks of structure, changes of character — labels the regime and runs five strategy modules. Every proposal passes a risk engine and position sizer, then waits for a human yes/no before a paper trade opens. Results are journaled to Postgres and served by a read-only FastAPI to a Next.js dashboard.',
+    decisions: [
+      'The risk engine can veto any trade: 1% account risk per trade, 3% daily and 6% weekly loss circuit breakers, at most two open positions, no leverage.',
+      'Strategies are validated walk-forward and on held-out data; only those that pass are assigned to an asset.',
+      'Paper trading only, with mandatory human approval — no real capital is connected.',
+      'Unit tests cover the risk engine, position sizing, strategies and paper-engine regressions.',
     ],
-    metric: '92 Performance · 100 Accessibility · 100 Best Practices · 100 SEO (Lighthouse, throttled mobile)',
-    tech: ['Next.js', 'React', 'TypeScript', 'Three.js', 'Framer Motion', 'Supabase'],
-    liveUrl: 'https://atlas-gamma-seven.vercel.app/',
-    githubUrl: 'https://github.com/yourgirltech/Atlas',
-    featured: false,
-    device: 'macbook',
-    accent: '#56606C',
-    image: atlasImg,
+    demonstrates: ['Python systems design', 'Risk engineering', 'Backtesting', 'Human-approved automation'],
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'Alembic', 'Next.js', 'TypeScript', 'Docker', 'Pytest'],
+    links: [{ kind: 'GitHub', href: gh('crypto-swing-bot') }],
+    flow: [
+      { label: '4H candles', detail: 'closed only', tone: 'trigger' },
+      { label: 'Structure + regime', detail: 'BOS · CHoCH', tone: 'rule' },
+      { label: 'Strategy', detail: '5 modules', tone: 'rule' },
+      { label: 'Risk veto', detail: 'sizing + breakers', tone: 'rule' },
+      { label: 'Human y/n', detail: 'every trade', tone: 'human' },
+      { label: 'Paper trade', detail: 'journaled', tone: 'action' },
+    ],
+  },
+]
+
+export const sideProjects: SideProject[] = [
+  {
+    name: 'Insurance FNOL & claims pipeline',
+    description:
+      'Retrieval over policy documents in pgvector for coverage checks, Gemini vision damage scoring from photos, and an adjuster approval step that routes to confirmation or senior escalation.',
+    stack: ['n8n', 'pgvector', 'Gemini', 'Supabase'],
+    note: 'Private workflow',
   },
   {
-    id: 'wedding-website',
-    name: 'The Wedding Website',
-    tagline: 'A bespoke invitation site built for one couple, one day.',
-    overview:
-      'A fully custom wedding website built for a client, covering their story, schedule, RSVP flow, and gallery. The brief called for something that felt like a printed invitation translated to the web.',
-    challenge:
-      'The client wanted a site that felt personal and considered, not templated, while still being simple for guests of every generation to navigate on any device.',
-    solution:
-      'I built a slow, editorial scroll experience with soft reveal animations and a guest-first RSVP flow, keeping every interaction obvious and every visual choice intentional.',
-    features: [
-      'Integrated RSVP flow with real-time confirmation',
-      'Interactive event timeline with scroll-based reveals',
-      'Custom photo gallery with fluid lightbox transitions',
-      'Fully responsive, from guest phones to the couple\u2019s desktop',
-    ],
-    metric: '200+ guest RSVPs collected',
-    tech: ['React', 'JavaScript', 'Supabase', 'Framer Motion', 'Tailwind CSS'],
-    liveUrl: 'https://abassandlive.com',
-    githubUrl: 'https://github.com/yourgirltech/live-abass-wedding',
-    featured: false,
-    device: 'phone',
-    accent: '#E8DDD2',
-    image: weddingWebsiteImg,
+    name: 'Gmail AI automation',
+    description:
+      'Classifies incoming email, summarises and drafts replies to genuine enquiries, and sends nothing until a human approves the draft.',
+    stack: ['n8n', 'Gemini', 'Gmail API'],
+    href: gh('gmail-ai-automation-agent'),
+  },
+  {
+    name: 'Job search pipeline agent',
+    description:
+      'Pulls remote listings from several job boards daily, filters and scores them against a profile, summarises matches with an LLM and logs them to Supabase.',
+    stack: ['n8n', 'Gemini', 'Supabase'],
+    href: gh('job-search-pipeline-agent'),
+  },
+  {
+    name: 'Trackora logistics platform',
+    description:
+      'A Next.js logistics site whose side effects run through n8n: shipment tracking answers, AI inquiry triage with a hand-off to a sales call, and ops dashboards.',
+    stack: ['Next.js', 'n8n', 'Supabase', 'Gemini'],
+    href: gh('Trackora'),
   },
 ]

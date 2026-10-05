@@ -1,74 +1,55 @@
-import { motion } from 'framer-motion'
-import SectionHeading from '@/components/ui/SectionHeading'
+import Reveal from '@/components/ui/Reveal'
+import SectionHeader from '@/components/ui/SectionHeader'
+import portrait from '@/assets/portrait.webp'
 
-const points = [
-  {
-    title: 'Interfaces',
-    body: 'Beautiful, considered UI built with the same care as the code behind it.',
-  },
-  {
-    title: 'Full-Stack Delivery',
-    body: 'Frontend connected to real systems \u2014 authentication, databases, and live payments.',
-  },
-  {
-    title: 'Performance',
-    body: 'Fast by default \u2014 optimised renders, lazy loading, and lean bundles.',
-  },
-  {
-    title: 'Architecture',
-    body: 'Scalable React and Next.js applications built on clean, reusable systems.',
-  },
-  {
-    title: 'Financial Fluency',
-    body: 'A background in accounting (ACCA candidate) sharpens how I handle data integrity, edge cases, and reconciliation \u2014 especially on fintech and payments work.',
-  },
-  {
-    title: 'AI & Automation',
-    body: 'LLM-powered features and n8n workflow automation \u2014 from a Claude API assistant shipped into production to a human-in-the-loop email automation with real approval gating.',
-  },
+const principles = [
+  'AI recommends. A human approves. Automation executes.',
+  'If it involves money, eligibility or routing, it’s deterministic code.',
+  'Every failure path ends with a person who knows about it.',
 ]
 
 export default function About() {
   return (
-    <section id="about" className="bg-ivory px-6 py-28 md:px-10 md:py-36">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading eyebrow="About" title="Design meets engineering." />
-
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-xl text-balance text-xl leading-relaxed text-slate sm:text-2xl"
-            >
-              I design and build complete digital products, not just interfaces.
-              What started as frontend craft has grown into full delivery &mdash;
-              React and Next.js applications wired to real authentication,
-              databases, and payments, shipped for actual clients and customers.
-              That same delivery mindset now extends into AI and automation
-              &mdash; LLM-powered features and n8n workflows that do real work,
-              not demos. I still obsess over the details only a designer would
-              notice, but now I build the systems underneath them too.
-            </motion.p>
-
-            <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
-              {points.map((point, i) => (
-                <motion.div
-                  key={point.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-t border-charcoal/10 pt-5"
-                >
-                  <h3 className="font-display text-lg text-charcoal">{point.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate">{point.body}</p>
-                </motion.div>
-              ))}
-            </div>
+    <section id="about" aria-labelledby="about-title" className="border-t border-line py-24 md:py-32">
+      <div className="mx-auto grid max-w-6xl gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_1.4fr] lg:items-start">
+        <Reveal className="mx-auto w-full max-w-sm lg:mx-0">
+          <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+            <img
+              src={portrait}
+              alt="Portrait of Funmilola Showumi"
+              width={800}
+              height={738}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/5] h-full w-full object-cover"
+            />
           </div>
+        </Reveal>
+
+        <div>
+          <SectionHeader index="05" eyebrow="About" id="about-title" title="From interfaces to the systems behind them." />
+          <Reveal delay={0.05} className="mt-6 space-y-5 text-lg leading-relaxed text-pretty text-muted">
+            <p>
+              I started as a frontend engineer and grew into full delivery — React and Next.js applications wired to
+              real authentication, databases and payments. Today most of my work is AI systems: agents, voice agents
+              and automations that run inside real business workflows.
+            </p>
+            <p>
+              My background in accounting (ACCA candidate) shapes how I build. I care about reconciliation, audit
+              trails and edge cases — which is exactly what AI systems need around them before anyone should trust
+              them with real customers, patients or money.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <ul className="mt-10 border-t border-line">
+              {principles.map((p) => (
+                <li key={p} className="flex gap-4 border-b border-line py-4 text-fg/90">
+                  <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-signal" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </div>
     </section>

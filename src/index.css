@@ -1,80 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,300..600,0..1&family=Inter:wght@300..600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-warm-white: #FAF9F7;
-  --color-ivory: #F7F5F2;
-  --color-champagne: #E8DDD2;
-  --color-stone: #D8D5CF;
-  --color-sage: #DDE6DE;
-  --color-sage-deep: #8FA396;
-  --color-sage-ink: #4B5B4F;
-  --color-slate: #56606C;
-  --color-charcoal: #171717;
+  --color-ink: #0a0b0d;
+  --color-surface: #111317;
+  --color-raised: #171a1f;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.14);
+  --color-fg: #e8eaed;
+  --color-muted: #9aa1ab;
+  --color-faint: #6b727c;
+  --color-signal: #8be3c1;
 
-  --font-display: 'Fraunces', 'Georgia', serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  /* diagram node tones */
+  --color-tone-trigger: #8ab4f8;
+  --color-tone-rule: #c7b8ff;
+  --color-tone-ai: #8be3c1;
+  --color-tone-human: #f6c27a;
+  --color-tone-data: #9aa1ab;
+  --color-tone-action: #f28b82;
 
-  --animate-marquee: marquee 32s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 }
 
 html {
-  background: var(--color-warm-white);
-  scroll-behavior: auto;
+  background: var(--color-ink);
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  font-family: var(--font-body);
-  color: var(--color-charcoal);
-  background: var(--color-warm-white);
+  font-family: var(--font-sans);
+  color: var(--color-fg);
+  background: var(--color-ink);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-sage-deep);
-  color: var(--color-warm-white);
+  background: var(--color-signal);
+  color: var(--color-ink);
 }
 
-/* thin custom scrollbar */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--color-warm-white); }
-::-webkit-scrollbar-thumb { background: var(--color-stone); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-sage-deep); }
-
-/* visible keyboard focus */
 :focus-visible {
-  outline: 2px solid var(--color-sage-deep);
+  outline: 2px solid var(--color-signal);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
-
-.font-display { font-family: var(--font-display); }
-.font-mono { font-family: var(--font-mono); }
 
 .text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
 
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* faint engineering grid used behind the hero */
+.grid-backdrop {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+}
+
+/* travelling pulse along diagram connectors */
+@keyframes pulse-travel {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(400%); }
+}
+.connector-pulse {
+  animation: pulse-travel 2.8s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

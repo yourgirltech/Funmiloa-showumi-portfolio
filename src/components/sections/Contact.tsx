@@ -1,187 +1,181 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Code2, Link2, Mail, Download, ArrowUpRight, Loader2 } from 'lucide-react'
-import RevealText from '@/components/ui/RevealText'
-import MagneticButton from '@/components/ui/MagneticButton'
+import { useState, type FormEvent } from 'react'
+import { ArrowRight, ArrowUpRight, Loader2 } from 'lucide-react'
+import Reveal from '@/components/ui/Reveal'
+import { contactHref, site } from '@/data/site'
 
+/** Web3Forms access keys are designed for client-side use; it still lives in env, not source. */
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined
 
-const WEB3FORMS_ACCESS_KEY = '6a6ddab1-12a7-419a-8257-b1671d8a1b76'
-
-const socials = [
-  { icon: Code2, label: 'GitHub', href: 'https://github.com/yourgirltech' },
-  { icon: Link2, label: 'LinkedIn', href: 'https://www.linkedin.com/in/funmilola-showumi-01b385284/' },
-  { icon: Mail, label: 'Email', href: 'mailto:hello@funmilolashowumi.com' },
+const brief = [
+  'The workflow as it runs today',
+  'The tools and data it touches',
+  'Where it breaks or costs time',
+  'What “done” would look like',
 ]
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
 
-export default function Contact() {
+const field =
+  'mt-2 w-full rounded-lg border border-line-strong bg-ink px-3.5 py-2.5 text-fg placeholder:text-faint focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal'
+
+function ContactForm({ accessKey }: { accessKey: string }) {
   const [status, setStatus] = useState<Status>('idle')
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setStatus('sending')
+    const form = e.currentTarget
+    const data = new FormData(form)
+    if (data.get('botcheck')) return
 
+    setStatus('sending')
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `New portfolio message from ${form.name}`,
-          from_name: form.name,
-          name: form.name,
-          email: form.email,
-          message: form.message,
+          access_key: accessKey,
+          subject: `Portfolio enquiry from ${String(data.get('name') ?? '')}`,
+          from_name: data.get('name'),
+          name: data.get('name'),
+          email: data.get('email'),
+          message: data.get('message'),
         }),
       })
-      const data = await res.json()
-
-      if (data.success) {
-        setStatus('sent')
-        setForm({ name: '', email: '', message: '' })
-      } else {
-        setStatus('error')
-      }
+      const json = (await res.json().catch(() => ({}))) as { success?: boolean }
+      if (!res.ok || !json.success) throw new Error('submit failed')
+      form.reset()
+      setStatus('sent')
     } catch {
       setStatus('error')
     }
   }
 
+  if (status === 'sent') {
+    return (
+      <p role="status" className="rounded-xl border border-signal/40 bg-signal/10 p-6 text-fg">
+        Thanks — your message is in. I’ll reply to the email you gave.
+      </p>
+    )
+  }
+
   return (
-    <section id="contact" className="relative overflow-hidden bg-charcoal px-6 py-28 md:px-10 md:py-40">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-sage/10 blur-[140px]" />
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <div className="grid gap-5 sm:grid-cols-2">
+        <label className="block text-sm text-muted">
+          Name
+          <input name="name" required autoComplete="name" className={field} />
+        </label>
+        <label className="block text-sm text-muted">
+          Email
+          <input name="email" type="email" required autoComplete="email" className={field} />
+        </label>
       </div>
-
-      <div className="relative mx-auto max-w-4xl text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-sage">Contact</p>
-        <RevealText
-          text="Let's Build Something Exceptional."
-          as="h2"
-          className="mt-6 font-display text-4xl leading-[1.1] text-warm-white sm:text-5xl md:text-6xl"
-        />
-        <p className="mx-auto mt-6 max-w-lg text-balance text-slate/80">
-          Have a project in mind, or just want to say hello? I&apos;d love to
-          hear from you.
-        </p>
-
-        <form onSubmit={handleSubmit} className="mx-auto mt-14 max-w-md text-left">
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="name" className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage">
-                Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                className="mt-2 w-full border-b border-warm-white/20 bg-transparent py-2 text-warm-white placeholder:text-warm-white/30 outline-none transition-colors focus:border-sage-deep"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                className="mt-2 w-full border-b border-warm-white/20 bg-transparent py-2 text-warm-white placeholder:text-warm-white/30 outline-none transition-colors focus:border-sage-deep"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows={3}
-                value={form.message}
-                onChange={handleChange}
-                placeholder="Tell me about your project"
-                className="mt-2 w-full resize-none border-b border-warm-white/20 bg-transparent py-2 text-warm-white placeholder:text-warm-white/30 outline-none transition-colors focus:border-sage-deep"
-              />
-            </div>
-          </div>
-
-          <div className="mt-10 flex justify-center">
-            <MagneticButton
-              type="submit"
-              disabled={status === 'sending'}
-              className="!bg-sage !text-charcoal hover:!bg-warm-white disabled:opacity-60"
-            >
-              {status === 'sending' ? (
-                <Loader2 size={16} className="animate-spin" />
-              ) : (
-                <>
-                  {status === 'sent' ? 'Message sent' : 'Send message'}
-                  <ArrowUpRight size={16} />
-                </>
-              )}
-            </MagneticButton>
-          </div>
-          {status === 'sent' && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-4 text-center font-mono text-xs uppercase tracking-[0.2em] text-sage"
-            >
-              Thank you &mdash; I&apos;ll be in touch soon.
-            </motion.p>
+      <label className="block text-sm text-muted">
+        What would you like to automate or build?
+        <textarea name="message" required rows={5} className={`${field} resize-y`} />
+      </label>
+      <div className="flex flex-wrap items-center gap-4">
+        <button
+          type="submit"
+          disabled={status === 'sending'}
+          className="inline-flex items-center gap-2 rounded-full bg-signal px-5 py-3 text-sm font-semibold text-ink transition hover:brightness-110 disabled:opacity-60"
+        >
+          {status === 'sending' ? (
+            <>
+              <Loader2 aria-hidden="true" className="size-4 animate-spin" /> Sending…
+            </>
+          ) : (
+            <>
+              Send message <ArrowRight aria-hidden="true" className="size-4" />
+            </>
           )}
+        </button>
+        <p aria-live="polite" className="text-sm text-tone-action">
           {status === 'error' && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-4 text-center font-mono text-xs uppercase tracking-[0.2em] text-red-400"
-            >
-              Something went wrong &mdash; please email me directly instead.
-            </motion.p>
+            <>
+              That didn’t send. Please email{' '}
+              <a href={contactHref} className="underline">
+                {site.email}
+              </a>{' '}
+              instead.
+            </>
           )}
-        </form>
+        </p>
+      </div>
+    </form>
+  )
+}
 
-        <div className="mt-16 flex items-center justify-center gap-8 border-t border-warm-white/10 pt-10">
-          {socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor-hover
-              className="flex items-center gap-2 text-sm text-warm-white/70 transition-colors hover:text-sage"
-            >
-              <social.icon size={16} />
-              {social.label}
-            </a>
-          ))}
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor-hover
-            className="flex items-center gap-2 text-sm text-warm-white/70 transition-colors hover:text-sage"
-          >
-            <Download size={16} />
-            Resume
-          </a>
+export default function Contact() {
+  return (
+    <section id="contact" aria-labelledby="contact-title" className="border-t border-line py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="grid gap-12 rounded-2xl border border-line bg-surface p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr] lg:p-14">
+          <Reveal>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-faint">
+              <span className="text-signal">06</span> / Contact
+            </p>
+            <h2 id="contact-title" className="mt-4 font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
+              Have a workflow that should run itself?
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-pretty text-muted">
+              Tell me about it. I’ll tell you honestly whether AI belongs in it — and what I would build.
+            </p>
+            <h3 className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-faint">A useful first message covers</h3>
+            <ul className="mt-3 space-y-2 text-fg/90">
+              {brief.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-signal" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-1 text-sm [&_a]:inline-flex [&_a]:min-h-10 [&_a]:items-center">
+              <li>
+                <a href={contactHref} className="text-fg underline decoration-line-strong underline-offset-4 hover:decoration-signal">
+                  {site.email}
+                </a>
+              </li>
+              {[
+                { label: 'LinkedIn', href: site.linkedin },
+                { label: 'GitHub', href: site.github },
+              ].map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-muted transition-colors hover:text-fg"
+                  >
+                    {l.label} <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={site.resume} className="inline-flex items-center gap-1 text-muted transition-colors hover:text-fg" download>
+                  Résumé (PDF)
+                </a>
+              </li>
+            </ul>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            {WEB3FORMS_KEY ? (
+              <ContactForm accessKey={WEB3FORMS_KEY} />
+            ) : (
+              <div className="flex h-full flex-col justify-center gap-5">
+                <p className="text-muted">The quickest way to reach me is email.</p>
+                <a
+                  href={contactHref}
+                  className="inline-flex w-fit items-center gap-2 rounded-full bg-signal px-5 py-3 text-sm font-semibold text-ink transition hover:brightness-110"
+                >
+                  Let’s Work Together <ArrowRight aria-hidden="true" className="size-4" />
+                </a>
+              </div>
+            )}
+          </Reveal>
         </div>
       </div>
     </section>
